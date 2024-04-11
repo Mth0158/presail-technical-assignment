@@ -29,6 +29,9 @@ gem "cssbundling-rails"
 # Provides the generator settings required for Rails 3+ to use Slim [https://github.com/slim-template/slim-rails]
 gem "slim-rails", "~> 3.1"
 
+# Object oriented authorization for Rails applications
+gem "pundit", "~> 2.3"
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
