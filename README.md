@@ -1,24 +1,56 @@
-# README
+This application is the monolythic application that is running the technical assignment made for Presail.<br>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Rails / Ruby version
 
-Things you may want to cover:
+Current Rails version is 7.1.3 (check it at `Gemfile`)
+Current Ruby version is 3.1.2 (check it at `.ruby_version`)
 
-* Ruby version
+## Node version
 
-* System dependencies
+Current Node version is 18.19.0 (check it at `.node_version`)
 
-* Configuration
+## System dependencies
 
-* Database creation
+There no dependencies outside of Rails, Ruby, Node and Yarn.
 
-* Database initialization
+## Javascript dependencies
 
-* How to run the test suite
+To install the Javascript dependencies, just run the corresponding yarn task:
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+$ yarn install
+```
 
-* Deployment instructions
+## Database creation
 
-* ...
+To create the database, just run the corresponding rake task:
+
+```bash
+$ bundle exec rails db:create
+```
+
+## Database initialization
+
+You can either run the migration or, if you start anew, load the schema
+
+```bash
+$ bundle exec rails db:schema:load
+```
+
+## How to run the test suite
+
+Run the test suite with Rspec:
+
+You can either run the migration or, if you start anew, load the schema
+
+```bash
+$ bundle exec rspec spec
+```
+
+## Services (job queues, cache servers, search engines, etc.)
+
+No services are required.
+
+## Deployment instructions
+
+There is no CD pipeline configured for our app for this technical assignment.
