@@ -28,4 +28,15 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  sessions:
+    new:
+      connected: Connected to Presail! ✅
+      ctas:
+        connect: Connect with MetaMask
+        disconnect: Disconnect
+        sign_message: Sign message to connect to Presail
+      not_connected: Not connected ❌
+    create:
+      flash:
+        notice: You are logged in!
+        error: You were not able to log in

@@ -1,0 +1,33 @@
+div class="flex items-center justify-center h-screen w-screen" data-controller="meta-mask-connector"
+  div class="flex flex-col gap-5 border-solid border-gray-500 border rounded p-5 max-w-xs md:max-w-md"
+    div class="flex flex-col gap-2"
+      button data-meta-mask-connector-target="logInButton" data-action="click->meta-mask-connector#logIn"
+        = t(".ctas.connect")
+      div data-meta-mask-connector-target="statusElement" class="text-center break-words text-sm"
+        = t(".not_connected")
+      - if policy(:Session).destroy?
+        = link_to t(".ctas.disconnect"),
+                  sessions_path,
+                  data: {\
+                    turbo_method: :delete,
+                    meta_mask_connector_target: "signOutButton"\
+                  },
+                  class: 'text-center'
+      - if current_user
+        p class="text-sm text-center text-green-500 break-words" = t(".connected")
+
+    div data-meta-mask-connector-target="signSection" class="flex flex-col gap-5 hidden"
+      hr
+      = form_with scope: :session,
+                  url: sessions_path,
+                  method: :post,
+                  data: { meta_mask_connector_target: "signMessageForm" },
+                  class: 'flex justify-center' do |f|
+        = f.submit t(".ctas.sign_message"),
+                  class: 'cursor-pointer',
+                  data: {\
+                    meta_mask_connector_target: "signMessageButton",
+                    action: "click->meta-mask-connector#signMessage"\
+                  }
+
+      div data-meta-mask-connector-target="signatureStatusElement" class="text-center break-words text-sm"

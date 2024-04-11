@@ -4,5 +4,5 @@
 
 import { application } from "./application"
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
+import MetaMaskConnectorController from "./meta_mask_connector_controller"
+application.register("meta-mask-connector", MetaMaskConnectorController)
