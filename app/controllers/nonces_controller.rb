@@ -9,7 +9,7 @@ class NoncesController < ApplicationController
 
   def set_user
     @user = User.find_or_create_by(meta_mask_address: params[:id]) do |user|
-      user.meta_mask_nonce = User.generate_random_value
+      user.meta_mask_nonce = User.generate_new_nonce
     end
   end
 end

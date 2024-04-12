@@ -16,7 +16,7 @@ class User < ApplicationRecord
   end
 
   def regenerate_meta_mask_nonce!
-    update(meta_mask_nonce: self.class.generate_random_value)
+    update(meta_mask_nonce: self.class.generate_new_nonce)
   end
 
   # Class methods ==============================================================
@@ -32,7 +32,7 @@ class User < ApplicationRecord
     find(payload["id"].to_i)
   end
 
-  def self.generate_random_value
+  def self.generate_new_nonce
     SecureRandom.hex
   end
 end

@@ -9,12 +9,15 @@ class SessionsController < ApplicationController
     authorize :session
 
     user = User.find_by(meta_mask_address: session_params[:address])
-    return unless user
 
-    if valid_signature?(from: session_params[:address], signature: session_params[:signature], message: session_params[:signature_message]) &&
-       valid_nonce?(user, session_params[:signature_message])
-      authenticate(user)
-      response = { status: :ok, redirect_to_url: root_url }
+    if user
+      if valid_signature?(from: session_params[:address], signature: session_params[:signature], message: session_params[:signature_message]) &&
+        valid_nonce?(user, session_params[:signature_message])
+        authenticate(user)
+        response = { status: :ok, redirect_to_url: root_url }
+      else
+        response = { status: :unauthorized }
+      end
     else
       response = { status: :unauthorized }
     end
