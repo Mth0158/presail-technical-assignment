@@ -9,7 +9,7 @@ RSpec.describe User do
     describe "#auth_token" do
       let(:user) { FactoryBot.build(:user) }
       let(:jwt_lib) { class_double("JWT").as_stubbed_const(transfer_nested_constants: true) }
-      let(:rails_master_key) { ENV.fetch("RAILS_MASTER_KEY") { "" } }
+      let(:rails_master_key) { Rails.application.credentials.jwt { "" } }
 
       it "uses the JWT library to encode the auth token" do
         expect(jwt_lib)
@@ -108,7 +108,7 @@ RSpec.describe User do
 
         context "because it's expired" do
           let(:payload) { { id: user.id, exp: 1.hour.ago.to_i } }
-          let(:hmac_secret) { ENV.fetch("RAILS_MASTER_KEY") { "" } }
+          let(:hmac_secret) { Rails.application.credentials.jwt { "" } }
           let(:auth_token) { JWT.encode payload, hmac_secret, "HS256" }
 
           it "raises InvalidToken error" do

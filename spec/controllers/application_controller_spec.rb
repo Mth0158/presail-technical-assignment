@@ -34,7 +34,7 @@ RSpec.describe ApplicationController do
     context "with an expired auth token" do
       let(:user) { FactoryBot.create(:user) }
       let(:payload) { { user_id: user.id, exp: 1.hour.ago.to_i } }
-      let(:hmac_secret) { ENV.fetch("RAILS_MASTER_KEY") { "" } }
+      let(:hmac_secret) { Rails.application.credentials.jwt { "" } }
       let(:token) { JWT.encode payload, hmac_secret, "HS256" }
 
       before { controller.params[:token] = token }

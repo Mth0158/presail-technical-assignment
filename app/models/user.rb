@@ -11,7 +11,7 @@ class User < ApplicationRecord
       exp: self.class::AUTH_TOKEN_TTL.from_now.to_i
     }
 
-    hmac_secret = ENV.fetch("RAILS_MASTER_KEY") { "" }
+    hmac_secret = Rails.application.credentials.jwt { "" }
     JWT.encode(payload, hmac_secret, "HS256")
   end
 
@@ -24,7 +24,7 @@ class User < ApplicationRecord
   def self.from_auth_token(token)
     payload = JWT.decode(
       token,
-      ENV.fetch("RAILS_MASTER_KEY") { "" },
+      Rails.application.credentials.jwt { "" },
       true,
       { algorithm: "HS256" }
     ).first
