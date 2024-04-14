@@ -1,10 +1,10 @@
 RSpec.describe ApplicationController do
   describe "#current_user" do
-    context "with auth token" do
+    context "with an active session" do
       let!(:user) { FactoryBot.create(:user) }
 
       before :each do
-        controller.send(:cookies).signed[:jwt] = user.auth_token
+        request.session[:current_user_id] = user.id
       end
 
       context "and no user" do
@@ -24,21 +24,7 @@ RSpec.describe ApplicationController do
       end
     end
 
-    context "with no auth token" do
-      it "returns nil" do
-        expect(controller.current_user)
-          .to be_nil
-      end
-    end
-
-    context "with an expired auth token" do
-      let(:user) { FactoryBot.create(:user) }
-      let(:payload) { { user_id: user.id, exp: 1.hour.ago.to_i } }
-      let(:hmac_secret) { Rails.application.credentials.jwt { "" } }
-      let(:token) { JWT.encode payload, hmac_secret, "HS256" }
-
-      before { controller.params[:token] = token }
-
+    context "without session / expired session" do
       it "returns nil" do
         expect(controller.current_user)
           .to be_nil

@@ -41,9 +41,6 @@ gem "redis", ">= 4.0.1"
 # Library to build, parse, and sign Ethereum transactions.
 gem "eth", '~> 0.4.3'
 
-# Use JWT to generate secured token
-gem 'jwt', '~> 2.8.1'
-
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 

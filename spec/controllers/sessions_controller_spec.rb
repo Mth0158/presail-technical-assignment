@@ -51,11 +51,11 @@ RSpec.describe SessionsController, type: :request do
               .to eq(root_url)
           end
 
-          it "authenticates the user by setting a jwt cookie" do
+          it "authenticates the user by setting a session cookie" do
             subject
 
-            expect(response.cookies["jwt"])
-              .to be_present
+            expect(session[:current_user_id])
+              .to eq(user.id)
           end
 
           it "generates a new meta_mask_nonce for the corresponding user" do
@@ -96,10 +96,10 @@ RSpec.describe SessionsController, type: :request do
     it { subject && expect(response).to(have_http_status(:redirect)) }
     it { is_expected.to redirect_to(root_path) }
 
-    it "deauthenticates the user by removing the jwt cookie" do
+    it "deauthenticates the user by removing the session cookie" do
       subject
 
-      expect(response.cookies["jwt"])
+      expect(session[:current_user_id])
         .not_to be_present
     end
   end

@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
   def destroy
     authorize :session
 
-    cookies.delete(:jwt)
+    reset_session
 
     redirect_to root_path
   end
